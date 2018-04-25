@@ -1,0 +1,3 @@
+class Shep extends Aminal{
+    
+}
