@@ -8,7 +8,9 @@ class Ecosim {
   
   public static void main(String[] args) { 
     
-    String map[][] = new String[50][50];
+    String map[][] = new String[25][25];
+    int sheep = 1;
+    int wolf = 1;
     
     // Initialize Map
     moveItemsOnGrid(map);
