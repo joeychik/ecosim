@@ -8,13 +8,13 @@ class GridTest {
   
   public static void main(String[] args) { 
     
-    String map[][] = new String[50][50];
+    String map[][] = new String[100][100];
     
     // Initialize Map
     moveItemsOnGrid(map);
     
     // display the fake grid on Console
-    DisplayGridOnConsole(map);
+    //DisplayGridOnConsole(map);
     
     //Set up Grid Panel
     DisplayGrid grid = new DisplayGrid(map);
