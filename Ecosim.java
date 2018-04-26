@@ -1,39 +1,35 @@
 /* [Ecosim.java]
- * A program to demonstrate usage of DisplayGrid.java.
+ * 
  * @author Mangat
  */
 
-class Ecosim { 
-  
-  
+class Ecosim {  
   public static void main(String[] args) { 
     
-    String map[][] = new String[25][25];
+    String stringMap[][] = new String[25][25];
+    Object map[][] = new Object[25][25];
     int sheep = 1;
     int wolf = 1;
     
     // Initialize Map
-    moveItemsOnGrid(map);
+    moveItemsOnGrid(stringMap);
     
     // display the fake grid on Console
     //DisplayGridOnConsole(map);
     
     //Set up Grid Panel
-    DisplayGrid grid = new DisplayGrid(map);
+    DisplayGrid grid = new DisplayGrid(stringMap);
     
-    //Display the grid on a Panel
-    grid.refresh();
-    
-    
-    //Small delay
-    try{ Thread.sleep(1000); }catch(Exception e) {};
-    
-    
-    // Initialize Map (Making changes to map)
-    moveItemsOnGrid(map);
-    
-    //Display the grid on a Panel
-    grid.refresh();
+    while(true) {        
+        // Initialize Map (Making changes to map)
+        moveItemsOnGrid(stringMap);
+        
+        //Display the grid on a Panel
+        grid.refresh();
+        
+        //Small delay
+        try{ Thread.sleep(1000); }catch(Exception e) {};
+    }
   }
   
   
