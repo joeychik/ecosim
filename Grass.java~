@@ -1,3 +1,3 @@
-class Grass{
+class Grass extends Object{
     
 }

@@ -14,7 +14,7 @@ class DisplayGrid {
   private int maxX,maxY, GridToScreenRatio;
   private String[][] world;
   
-  DisplayGrid(Object[][] w) { 
+  DisplayGrid(String[][] w) { 
     this.world = w;
     
     maxX = Toolkit.getDefaultToolkit().getScreenSize().width;

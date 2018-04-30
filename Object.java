@@ -1,4 +1,4 @@
-class Object{
+abstract class Object{
     private int x;
     private int y;
     
