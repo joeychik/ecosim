@@ -1,6 +1,0 @@
-class Dog extends Aminal{
-    
-    
-    Dog() {
-        
-}

@@ -1,0 +1,3 @@
+class Sheep extends Aminal{
+    
+}

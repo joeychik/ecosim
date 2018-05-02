@@ -12,7 +12,7 @@ class DisplayGrid {
 
   private JFrame frame;
   private int maxX,maxY, GridToScreenRatio;
-  private String[][] world;
+  private Object[][] world;
   
   DisplayGrid(Object[][] w) { 
     this.world = w;
