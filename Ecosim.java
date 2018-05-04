@@ -5,37 +5,39 @@
  */
 
 import java.util.Random;
+import java.util.ArrayList;
 
 class Ecosim {
     
-    private int iterations = 50;
-    private int tick = 100;
-    private int size = 25;
+    private static int ITERATIONS = 50;
+    private static int TICK = 500;
+    private static int SIZE = 25;
     
-    private double grassDensity = 0.7; // dont go past 1 please thanks
-    private double sheepDensity = 0.1;
-    private double dingoDensity = 0.1;
+    private static double GRASS_DENSITY = 0; // dont go past 1 please thanks
+    private static double SHEEP_DENSITY = 0.1;
+    private static double DINGO_DENSITY = 0.1;
     
+    private static double MOVE_CHANCE = 0.6;
     
-    private Object map[][];
+    private static Object[][] map;
     
     public static void main(String[] args) throws Exception {
-        map = new Object[size][size];
+        map = new Object[SIZE][SIZE];
         
         //Set up Grid Panel
         DisplayGrid grid = new DisplayGrid(map);
         
         // populate grid
-        for(int row; row < size; row++) {
-            for(int col; col < size; col++) {
+        for(int row = 0; row < SIZE; row++) {
+            for(int col = 0; col < SIZE; col++) {
                 
                 double rand = Math.random();
                 
-                if (rand < grassDensity) {
+                if (rand < GRASS_DENSITY) {
                     map[row][col] = new Grass();
-                } else if (rand < grassDensity + sheepDensity) {
+                } else if (rand < GRASS_DENSITY + SHEEP_DENSITY) {
                     map[row][col] = new Sheep();
-                }else if (rand < grassDensity + sheepDensity + dingoDensity) {
+                }else if (rand < GRASS_DENSITY + SHEEP_DENSITY + DINGO_DENSITY) {
                     map[row][col] = new Dingo();
                 }
                 
@@ -44,11 +46,13 @@ class Ecosim {
         
         grid.refresh();
         
-        /*for(int i = 0; i < iterations; i++) {        
+        try{ Thread.sleep(TICK); }catch(Exception e) {};
+        
+        for(int i = 0; i < ITERATIONS; i++) {        
             // Initialize Map (Making changes to map)
-            for(int row; row < size; row++) {
-                for(int col; col < size; col++) {
-                    update(row , col , map);
+            for(int row = 0; row < SIZE; row++) {
+                for(int col = 0; col < SIZE; col++) {
+                    update(row , col , map , i);
                 }
             }
             
@@ -56,25 +60,41 @@ class Ecosim {
             grid.refresh();
             
             //Small delay
-            try{ Thread.sleep(tick); }catch(Exception e) {};
-        }*/
+            try{ Thread.sleep(TICK); }catch(Exception e) {};
+        }
+        System.out.println("done");
     }
     
-    /*/ Method to simulate grid movement
-    public static void update(int x , int y , String[][] map) { 
+    // 
+    private static void update(int x , int y , Object[][] map , int iteration) { 
         Object current = map[x][y];
         
-        if (current instanceof Grass) {
-            if (current.getHealth == 0) {
+        //makes sure only animals that havent been moved are moved
+        if (!(current instanceof Grass) && current != null && current.getIteration() < iteration) {
+            ArrayList<int[]> surroundings = new ArrayList<int[]>();
+            
+            for (int row = -1; row < 2; row++) { // find all null spots around the object
+                if (x + row >= 0 && x + row < SIZE) {
+                    for (int col = -1; col < 2; col++) {
+                        if (y + col >= 0 && y + col < SIZE) {
+                            if (map[x + row][y + col] == null) {
+                                int[] temp = {x , y};
+                                surroundings.add(temp);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if (surroundings.size() >= 0) { 
+                int random = new Random().nextInt(surroundings.size());
+                int newX = surroundings.get(random)[0];
+                int newY = surroundings.get(random)[1];
+                map[x][y].updateIteration();
+                map[newX][newY] = map[x][y];
                 map[x][y] = null;
-            } else {
-                
-        } else if (current instanceof Dingo) {
-            
-        } else if (current instanceof Sheep) {
-            
+            }
         }
-        
-    }*/
+    }//
     
 }

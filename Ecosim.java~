@@ -4,32 +4,48 @@
  * 2018-04-24
  */
 
+import java.util.Random;
+
 class Ecosim {
     
-    private int iterations = 50;
-    private int tick = 100;
-    private int size = 25;
+    private static int ITERATIONS = 50;
+    private static int TICK = 100;
+    private static int SIZE = 25;
     
-    private double grassDensity = 0.7; // dont go past 1 please thanks
+    private static double GRASS_DENSITY = 0.7; // dont go past 1 please thanks
+    private static double SHEEP_DENSITY = 0.1;
+    private static double DINGO_DENSITY = 0.1;
     
     
-    private Object map[][] = new Object[size][size];
+    private static Object[][] map;
     
-    public static void main(String[] args) {
-        
-        int sheep = 1;
-        int wolf = 1;
-        
-        // display the fake grid on Console
-        //DisplayGridOnConsole(map);
+    public static void main(String[] args) throws Exception {
+        map = new Object[SIZE][SIZE];
         
         //Set up Grid Panel
         DisplayGrid grid = new DisplayGrid(map);
         
-        for(int i = 0; i < iterations; i++) {        
+        // populate grid
+        for(int row = 0; row < SIZE; row++) {
+            for(int col = 0; col < SIZE; col++) {
+                
+                double rand = Math.random();
+                
+                if (rand < GRASS_DENSITY) {
+                    map[row][col] = new Grass();
+                } else if (rand < GRASS_DENSITY + SHEEP_DENSITY) {
+                    map[row][col] = new Sheep();
+                }else if (rand < GRASS_DENSITY + SHEEP_DENSITY + DINGO_DENSITY) {
+                    map[row][col] = new Dingo();
+                }
+                
+            }
+        }
+        
+        for(int i = 0; i < ITERATIONS; i++) {        
             // Initialize Map (Making changes to map)
-            for(int row; row < size; row++) {
-                for(int col; col < size; col++) {
+            for(int row; row < SIZE; row++) {
+                for(int col; col < SIZE; col++) {
                     update(row , col , map);
                 }
             }
@@ -38,28 +54,24 @@ class Ecosim {
             grid.refresh();
             
             //Small delay
-            try{ Thread.sleep(tick); }catch(Exception e) {};
+            try{ Thread.sleep(TICK); }catch(Exception e) {};
         }
     }
-    
     
     // Method to simulate grid movement
     public static void update(int x , int y , String[][] map) { 
+        Object current = map[x][y];
         
-        for(int i = 0; i<map[0].length;i++)        
-            for(int j = 0; j<map.length;j++) 
-        { 
+        
+        
+        if (current.getHealth == 0) {
+            map[x][y] = null;
+        }
+        } else if (current instanceof Dingo) {
             
-            map[i][j]=((int)(Math.random()* 3))+"";
+        } else if (current instanceof Sheep) {
+            
         }
-    }
+    }//
     
-    //method to display grid a text for debugging
-    public static void DisplayGridOnConsole(String[][] map) { 
-        for(int i = 0; i<map.length;i++){        
-            for(int j = 0; j<map[0].length;j++) 
-                System.out.print(map[i][j]+" ");
-            System.out.println("");
-        }
-    }
 }

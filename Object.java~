@@ -1,9 +1,16 @@
 abstract class Object{
-    private int x;
-    private int y;
+    private int health;
+    private int decay;
     
-    Object(x , y) {
-        this.x = x;
-        this.y = y;
+    Object() {
     }
+    
+    public void update() {
+        this.health -= decay;
+    }
+    
+    public int getHealth() {
+        return this.health;
+    }
+    
 }
