@@ -4,7 +4,7 @@ abstract class Object{
     private int lastIteration;
     
     Object() {
-        this.lastIteration = -1;
+        this.lastIteration = 0;
     }
     
     //abstract void update( ArrayList<int[]> surroundings);
