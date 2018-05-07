@@ -1,5 +1,6 @@
 class Sheep extends Object{
     Sheep(){
         super();
+        super.changeHealth(100);
     }
 }

@@ -5,6 +5,7 @@ abstract class Object{
     
     Object() {
         this.lastIteration = 0;
+        this.health = 0;
     }
     
     //abstract void update( ArrayList<int[]> surroundings);

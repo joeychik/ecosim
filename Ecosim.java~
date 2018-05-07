@@ -27,7 +27,7 @@ class Ecosim {
         //Set up Grid Panel
         DisplayGrid grid = new DisplayGrid(map);
         
-        // populate grid
+        /*/ populate grid
         for(int row = 0; row < SIZE; row++) {
             for(int col = 0; col < SIZE; col++) {
                 
@@ -42,7 +42,9 @@ class Ecosim {
                 }
                 
             }
-        }
+        }*/
+        
+        map[2][2] = new Sheep();
         
         grid.refresh();
         
@@ -66,11 +68,13 @@ class Ecosim {
     }
     
     // 
-    private static void update(int x , int y , Object[][] map , int iteration) { 
+    private static void update(int x , int y , Object[][] map , int iteration) { // needs fixing
         Object current = map[x][y];
         
+        Random random = new Random();
+        
         //makes sure only animals that havent been moved are moved
-        if (!(current instanceof Grass) && current != null && current.getIteration() < iteration) {
+        if (!(current instanceof Grass) && (current != null) && (current.getIteration() < iteration)) {
             ArrayList<int[]> surroundings = new ArrayList<int[]>();
             
             for (int row = -1; row < 2; row++) { // find all null spots around the object
@@ -78,7 +82,7 @@ class Ecosim {
                     for (int col = -1; col < 2; col++) {
                         if (y + col >= 0 && y + col < SIZE) {
                             if (map[x + row][y + col] == null) {
-                                int[] temp = {x , y};
+                                int[] temp = {x + row ,y + col};
                                 surroundings.add(temp);
                             }
                         }
@@ -87,9 +91,10 @@ class Ecosim {
             }
             
             if (surroundings.size() >= 0) { 
-                int random = new Random().nextInt(surroundings.size());
-                int newX = surroundings.get(random)[0];
-                int newY = surroundings.get(random)[1];
+                int randomInt = random.nextInt(surroundings.size());
+                int newX = surroundings.get(randomInt)[0];
+                int newY = surroundings.get(randomInt)[1];
+                System.out.println(surroundings.get(randomInt)[0] + surroundings.get(randomInt)[1]);
                 map[x][y].updateIteration();
                 map[newX][newY] = map[x][y];
                 map[x][y] = null;
