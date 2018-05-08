@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 abstract class Object{
     private int health;
     private int decay;
@@ -8,8 +10,11 @@ abstract class Object{
         this.health = 0;
     }
     
-    //abstract void update( ArrayList<int[]> surroundings);
+    abstract int[] findSpots(ArrayList<Object> surroundings , ArrayList<int[]> surroundingCoords);
     
+    abstract void update(Object object);
+    
+    // getters and setters
     public int getHealth() {
         return this.health;
     }
