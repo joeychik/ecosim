@@ -6,7 +6,7 @@
 // Graphics Imports
 import javax.swing.*;
 import java.awt.*;
-
+import javax.imageio.*;
 
 class DisplayGrid { 
     
@@ -21,9 +21,9 @@ class DisplayGrid {
         maxY = Toolkit.getDefaultToolkit().getScreenSize().height;
         GridToScreenRatio = maxY / (world.length+1);  //ratio to fit in screen as square map
         
-        System.out.println("Map size: "+world.length+" by "+world[0].length + "\nScreen size: "+ maxX +"x"+maxY+ " Ratio: " + GridToScreenRatio);
+        System.out.println("Map size: " + world.length+" by " + world[0].length + "\nScreen size: " + maxX + "x" + maxY + " Ratio: " + GridToScreenRatio);
         
-        this.frame = new JFrame("Map of World");
+        this.frame = new JFrame("DingoSim 2000");
         
         GridAreaPanel worldPanel = new GridAreaPanel();
         
@@ -49,6 +49,8 @@ class DisplayGrid {
             
             for(int i = 0; i < world[0].length; i++) { 
                 for(int j = 0; j < world.length; j++) { 
+                    
+                    
                     
                     if (world[i][j] instanceof Sheep) {   //This block can be changed to match character-color pairs
                         g.setColor(Color.RED);
