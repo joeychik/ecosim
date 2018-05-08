@@ -14,17 +14,12 @@ class Ecosim {
     private static int SIZE = 25;
     
 <<<<<<< HEAD
-<<<<<<< HEAD
     private static double GRASS_DENSITY = 0.6; // dont go past 1 please thanks
     private static double SHEEP_DENSITY = 0.2;
 =======
     private static double GRASS_DENSITY = 0; // dont go past 1 please thanks
     private static double SHEEP_DENSITY = 0.1;
 >>>>>>> parent of 6065589... asdgdasghs;lj
-=======
-    private static double GRASS_DENSITY = 0.7; // dont go past 1 please thanks
-    private static double SHEEP_DENSITY = 0.1;
->>>>>>> parent of 4ec3aee... pelase help images dont work
     private static double DINGO_DENSITY = 0.1;
     
     private static double GRASS_PER_TURN = 0.05; // grass per turn
@@ -107,9 +102,11 @@ class Ecosim {
                     // find new spot to move to
                     int[] newCoords = current.findSpots(surroundings , surroundingCoords);
                     
+                    current.update(map[ newCoords[0] ][ newCoords[1] ]);
+                    
                     // move to new spot
                     map[x][y].updateIteration();
-                    map[newCoords[0]][newCoords[1]] = current;
+                    map[ newCoords[0] ][ newCoords[1] ] = current;
                     map[x][y] = null;
                 }
             } else {
