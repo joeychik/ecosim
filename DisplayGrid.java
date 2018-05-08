@@ -4,9 +4,16 @@
  */
 
 // Graphics Imports
+/*
 import javax.swing.*;
 import java.awt.*;
 import javax.imageio.*;
+*/
+import javax.swing.*;
+import javax.tools.Tool;
+import java.awt.*;
+import java.io.FileInputStream;
+import java.net.URL;
 
 class DisplayGrid { 
     
@@ -14,12 +21,20 @@ class DisplayGrid {
     private int maxX,maxY, GridToScreenRatio;
     private Object[][] world;
     
+    private static Image sheep;
+    private static Image dingo;
+    private static Image grass;
+    
     DisplayGrid(Object[][] w) { 
         this.world = w;
         
+        sheep = Toolkit.getDefaultToolkit().getImage("sprite/sheep_smol.png");
+        dingo = Toolkit.getDefaultToolkit().getImage("sprite/dingo_smol.png");
+        grass = Toolkit.getDefaultToolkit().getImage("sprite/grass_smol.png");
+        
         maxX = Toolkit.getDefaultToolkit().getScreenSize().width;
         maxY = Toolkit.getDefaultToolkit().getScreenSize().height;
-        GridToScreenRatio = maxY / (world.length+1);  //ratio to fit in screen as square map
+        GridToScreenRatio = maxY / (world.length + 2);  //ratio to fit in screen as square map
         
         System.out.println("Map size: " + world.length+" by " + world[0].length + "\nScreen size: " + maxX + "x" + maxY + " Ratio: " + GridToScreenRatio);
         
@@ -47,24 +62,24 @@ class DisplayGrid {
             setDoubleBuffered(true); 
             g.setColor(Color.BLACK);
             
+            g.setColor(new Color(220, 140, 55));
+            g.fillRect(0 , 0 , maxX , maxY);
+            
+            g.drawImage(sheep , 20 , 20 , this);
+            
             for(int i = 0; i < world[0].length; i++) { 
                 for(int j = 0; j < world.length; j++) { 
                     
-                    
-                    
-                    if (world[i][j] instanceof Sheep) {   //This block can be changed to match character-color pairs
-                        g.setColor(Color.RED);
-                    } else if (world[i][j] instanceof Dingo) {
-                        g.setColor(Color.BLUE);
-                    } else if (world[i][j] instanceof Grass) {
-                        g.setColor(Color.GREEN);
-                    } else {
-                        g.setColor(Color.WHITE);
+                    int xPos = j * GridToScreenRatio;
+                    int yPos = i * GridToScreenRatio;
+                                        
+                    if (world[j][i] instanceof Sheep) {   //This block can be changed to match character-color pairs
+                        g.drawImage(sheep , xPos , yPos , GridToScreenRatio , GridToScreenRatio , this);
+                    } else if (world[j][i] instanceof Dingo) {
+                        g.drawImage(sheep , xPos , yPos , GridToScreenRatio , GridToScreenRatio , this);
+                    } else if (world[j][i] instanceof Grass) {
+                        g.drawImage(sheep , xPos , yPos , GridToScreenRatio , GridToScreenRatio , this);
                     }
-                    
-                    g.fillRect(j*GridToScreenRatio, i*GridToScreenRatio, GridToScreenRatio, GridToScreenRatio);
-                    g.setColor(Color.BLACK);
-                    g.drawRect(j*GridToScreenRatio, i*GridToScreenRatio, GridToScreenRatio, GridToScreenRatio);
                 }
             }
         }
