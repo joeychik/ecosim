@@ -9,15 +9,13 @@ import java.util.ArrayList;
 
 class Ecosim {
     
-    private static int ITERATIONS = 500;
-    private static int TICK = 10;
+    private static int ITERATIONS = 50;
+    private static int TICK = 500;
     private static int SIZE = 25;
     
-    private static double GRASS_DENSITY = 0.7; // dont go past 1 please thanks
+    private static double GRASS_DENSITY = 0; // dont go past 1 please thanks
     private static double SHEEP_DENSITY = 0.1;
     private static double DINGO_DENSITY = 0.1;
-    
-    private static double GRASS_PER_TURN = 0.05; // grass per turn
     
     private static double MOVE_CHANCE = 0.6;
     
@@ -29,7 +27,7 @@ class Ecosim {
         //Set up Grid Panel
         DisplayGrid grid = new DisplayGrid(map);
         
-        // populate grid
+        /*/ populate grid
         for(int row = 0; row < SIZE; row++) {
             for(int col = 0; col < SIZE; col++) {
                 
@@ -44,7 +42,9 @@ class Ecosim {
                 }
                 
             }
-        }
+        }*/
+        
+        map[2][2] = new Sheep();
         
         grid.refresh();
         
@@ -81,22 +81,20 @@ class Ecosim {
                 if (x + row >= 0 && x + row < SIZE) {
                     for (int col = -1; col < 2; col++) {
                         if (y + col >= 0 && y + col < SIZE) {
-                            if (!(row == 0 && col == 0)) {
-                                surroundings.add(new int[]{x + row , y + col});
+                            if (map[x + row][y + col] == null) {
+                                int[] temp = {x + row ,y + col};
+                                surroundings.add(temp);
                             }
                         }
                     }
                 }
             }
             
-            if (!surroundings.isEmpty()) { 
+            if (surroundings.size() >= 0) { 
                 int randomInt = random.nextInt(surroundings.size());
-                
-                // coordinates of spot to be moved to
                 int newX = surroundings.get(randomInt)[0];
                 int newY = surroundings.get(randomInt)[1];
-                
-                // move to new spot
+                System.out.println(surroundings.get(randomInt)[0] + surroundings.get(randomInt)[1]);
                 map[x][y].updateIteration();
                 map[newX][newY] = map[x][y];
                 map[x][y] = null;

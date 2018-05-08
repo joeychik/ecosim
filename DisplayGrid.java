@@ -7,6 +7,7 @@
 /*
 import javax.swing.*;
 import java.awt.*;
+<<<<<<< HEAD
 import javax.imageio.*;
 */
 import javax.swing.*;
@@ -14,6 +15,9 @@ import javax.tools.Tool;
 import java.awt.*;
 import java.io.FileInputStream;
 import java.net.URL;
+=======
+
+>>>>>>> parent of 6065589... asdgdasghs;lj
 
 class DisplayGrid { 
     
@@ -36,9 +40,9 @@ class DisplayGrid {
         maxY = Toolkit.getDefaultToolkit().getScreenSize().height;
         GridToScreenRatio = maxY / (world.length + 2);  //ratio to fit in screen as square map
         
-        System.out.println("Map size: " + world.length+" by " + world[0].length + "\nScreen size: " + maxX + "x" + maxY + " Ratio: " + GridToScreenRatio);
+        System.out.println("Map size: "+world.length+" by "+world[0].length + "\nScreen size: "+ maxX +"x"+maxY+ " Ratio: " + GridToScreenRatio);
         
-        this.frame = new JFrame("DingoSim 2000");
+        this.frame = new JFrame("Map of World");
         
         GridAreaPanel worldPanel = new GridAreaPanel();
         
@@ -70,6 +74,7 @@ class DisplayGrid {
             for(int i = 0; i < world[0].length; i++) { 
                 for(int j = 0; j < world.length; j++) { 
                     
+<<<<<<< HEAD
                     int xPos = j * GridToScreenRatio;
                     int yPos = i * GridToScreenRatio;
                                         
@@ -79,6 +84,16 @@ class DisplayGrid {
                         g.drawImage(sheep , xPos , yPos , GridToScreenRatio , GridToScreenRatio , this);
                     } else if (world[j][i] instanceof Grass) {
                         g.drawImage(sheep , xPos , yPos , GridToScreenRatio , GridToScreenRatio , this);
+=======
+                    if (world[i][j] instanceof Sheep) {   //This block can be changed to match character-color pairs
+                        g.setColor(Color.RED);
+                    } else if (world[i][j] instanceof Dingo) {
+                        g.setColor(Color.BLUE);
+                    } else if (world[i][j] instanceof Grass) {
+                        g.setColor(Color.GREEN);
+                    } else {
+                        g.setColor(Color.WHITE);
+>>>>>>> parent of 6065589... asdgdasghs;lj
                     }
                 }
             }
